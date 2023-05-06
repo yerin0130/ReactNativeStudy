@@ -1,56 +1,83 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {View, Text, Button} from 'react-native';
+//import {createDrawerNavigator} from '@react-navigation/drawer';
+import {View, Text, Button, Alert} from 'react-native';
+//import {singIn, singUp} from './lib/auth';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
-function HomeScreen({navigation}) {
-  return (
-    <View>
-      <Text>Home</Text>
-      <Button title="Drawer 열기" onPress={() => navigation.openDrawer()} />
-      <Button
-        title="Setting 열기"
-        onPress={() => navigation.navigate('Setting')}
-      />
-    </View>
-  );
+function HomeScreen() {
+  return <Text>Home</Text>
 }
 
-function SettingScreen({navigation}) {
-  return (
-    <View>
-      <Text>Setting</Text>
-      <Button title="뒤로가기" onPress={() => navigation.goBack()} />
-    </View>
-  );
+function SearchScreen() {
+  return <Text>Search</Text>
+}
+
+function NotificationScreen() {
+  return <Text>Notification</Text>
+}
+
+function MessageScreen() {
+  return <Text>Message</Text>
 }
 
 function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="Home"
-        drawerPosition="left"
-        backBehavior="history"
-        screenOptions={{
-          drawerActiveBackgroundColor: '#fb8c00',
-          drawerActiveTintColor: 'white',
-        }}>
-        <Drawer.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: '홈'}}
-        />
-        <Drawer.Screen
-          name="Setting"
-          component={SettingScreen}
-          options={{title: '설정'}}
-        />
-      </Drawer.Navigator>
+      <Tab.Navigator initialRouteName="Home">
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Notification" component={NotificationScreen} />
+        <Tab.Screen name="Message" component={MessageScreen} />
+      </Tab.Navigator>
+        {/* <Drawer.Screen
+          name="Signupin"
+          component={SignInScreen}
+          options={({title: '회원가입/로그인'})}
+        /> */}
     </NavigationContainer>
   );
 }
+
+// function SignInScreen(){
+//   const [from,setForm] = useState({
+//     email: "",
+//     password: "",
+//     confirmPassword: "",
+//   });
+
+//   const signUpSubmit = async () =>{
+//     const {email, password}=form;
+//     const info ={email,password};
+//     try{
+//       const {user}=await singUp(info);
+//       console.log(user);
+//     }
+//     catch(e){
+//       Alert.alert("회원가입 실패..");
+//     }
+//   }
+
+//   const signInSubmit = async () => {
+//     const {email,password}=form;
+//     const info = {email,password};
+//     try{
+//       const {user} = await singIn(infor);
+//       console.log(user);
+//     }
+//     catch(e){
+//       Alert.alert("로그인 실패..");
+//     }
+//   }
+
+//   return (
+//     <View>
+//       <Text>SignIn</Text>
+//       <Button title="" onPress={() => navigation.goBack()} />
+//     </View>
+//   );
+// }
 
 export default App;
